@@ -18,7 +18,7 @@ window.addEventListener('load', function () {
             contentContainer.style.display = 'block'; // Zeige das Markdown-Inhaltsdiv an
 
             // Erstelle die URL zur Markdown-Datei
-            const filePath = hash + '.md';
+            const filePath = 'pages/' + hash + '.md';
 
             // Lade die Datei mit fetch
             fetch(filePath)
