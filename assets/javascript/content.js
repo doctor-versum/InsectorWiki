@@ -2,9 +2,9 @@
 const folders = ['people', 'places', 'objects']; // Beispiel: Ordner, die du überprüfen möchtest
 
 const overviewData = [
-    { header: "Name", value: "test" },
-    { header: "Alter", value: "16" },
-    { header: "Rolle", value: "main character" }
+    { header: "name", value: "test" },
+    { header: "age", value: "16" },
+    { header: "role", value: "main character" }
 ];
 
 window.addEventListener('load', function () {
