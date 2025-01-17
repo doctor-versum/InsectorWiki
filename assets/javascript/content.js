@@ -144,9 +144,13 @@ function findAndRedirectInvalidHash(hash) {
   
       return true; // Alternative gefunden
     } else {
-      // Falls keine Seite gefunden wurde, gib eine Fehlermeldung aus
-      console.log(`Kein gültiger Hash gefunden für: ${hash}`);
-      return false; // Keine Alternative gefunden
+        // Falls keine Seite gefunden wurde, gib eine Fehlermeldung aus
+        console.log(`Kein gültiger Hash gefunden für: ${hash}`);
+        contentContainer.style.display = 'none'; // Verstecke das Markdown-Inhaltsdiv
+        img.style.display = 'none';
+        iframeContainer.style.display = 'block'; // Zeige den iFrame an
+        iframeContainer.innerHTML = '<iframe src="system/error404.html" frameborder="0" style="width: 100%; height: 100%; border-radius=8px;"></iframe>';
+        return false; // Keine Alternative gefunden
     }
   }
 
