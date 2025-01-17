@@ -40,7 +40,7 @@ body {
 
 /* Header-Stil */
 header {
-    background-color: #4CAF50;
+    background-color: #922c20;
     color: white;
     padding: 20px;
     text-align: center;
@@ -57,7 +57,7 @@ header img.header-image {
     position: absolute;
     bottom: 0; /* Stellt sicher, dass das Bild am unteren Rand des Headers ausgerichtet ist */
     left: 0; /* Setzt das Bild an die linke Seite */
-    width: 130px; /* Erhöht die Breite des Bildes */
+    width: 105px; /* Erhöht die Breite des Bildes */
     height: auto; /* Höhe passt sich der Breite an, um das Bildverhältnis beizubehalten */
 }
 
@@ -82,7 +82,7 @@ nav ul li a {
 }
 
 nav ul li a:hover {
-    background-color: #45a049;
+    background-color: #383838;
     border-radius: 5px;
 }
 
@@ -121,7 +121,7 @@ footer a {
 }
 
 footer a:hover {
-    color: #4CAF50;
+    color: #922c20;
 }
 
 .iframe-container {
@@ -294,10 +294,11 @@ td {
 
     nav ul li a {
         color: #ddd;
+        border-radius: 5px;
     }
 
     nav ul li a:hover {
-        background-color: #575757;
+        background-color: #922c20;
     }
 
     main {
@@ -311,6 +312,20 @@ td {
     }
 
     footer a:hover {
-        color: #4CAF50;
+        color: #922c20;
+    }
+
+    nav ul li a {
+        text-decoration: none;
+        color: white;
+        font-size: 1.1rem;
+        padding: 5px 10px;
+        border-radius: 5px;
+        transition: background-color 0.3s ease;
+    }
+
+    nav ul li a:hover {
+        background-color: #922c20;
+        border-radius: 5px;
     }
 }
