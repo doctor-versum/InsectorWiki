@@ -119,6 +119,56 @@ footer a:hover {
     border-radius: 8px;
 }
 
+
+.highlight-text {
+    color: red;
+}
+.custom-link {
+    background-color: #e74c3c;
+    padding: 4px;
+    border-radius: 4px;
+    text-decoration: none;
+    color: white;
+    margin: 3px;
+    transition: background-color 0.3s;
+}
+.custom-link:hover {
+    background-color: #922c20;
+}
+
+.overview {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 20px;
+}
+
+.overview-image {
+    max-width: 150px;
+    margin-right: 20px;
+}
+
+.overview-table {
+    flex: 1;
+    overflow-x: auto;
+}
+
+.overview-table table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.overview-table th, .overview-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+.table-headers th {
+    background-color: #f4f4f4;
+    font-weight: bold;
+}
+
+
 /* Responsives Design für kleinere Bildschirme */
 @media (max-width: 768px) {
     header h1 {
