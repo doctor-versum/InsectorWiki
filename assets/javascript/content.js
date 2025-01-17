@@ -143,6 +143,15 @@ function findAndRedirectInvalidHash(hash) {
   
       // Suche das div-Element mit der Klasse 'content' (oder falls der Name anders ist, passe ihn an)
       const contentElement = document.querySelector('.content');  // Hier wird das Element mit der Klasse 'content' gesucht
+      
+      const tableHeaders = document.getElementById("table-headers");
+      const tableValues = document.getElementById("table-values");
+      const imageElement = document.getElementById("character-image");
+
+      // Leere die Tabelle und das Bild
+      tableHeaders.innerHTML = "";
+      tableValues.innerHTML = "";
+      imageElement.src = ""; // Setze das Bild auf leer
   
       if (contentElement) {
         contentElement.innerHTML = multiplePagesTable; // Füge die Tabelle in das gefundenen div ein
