@@ -1,7 +1,7 @@
 {
-    "img": "../../../../assets/images/logo",
-    "name": "Character 1",
-    "age": "25",
-    "first_episode": "Episode 1",
-    "trivia": "Interesting fact about this character."
+    "img": "assets/images/logo.jpg",
+    "name": "Miseong",
+    "age": "unknown",
+    "first shown in": "Episode 1",
+    "trivia": "Is the first friendly insector shown in the comic"
 }

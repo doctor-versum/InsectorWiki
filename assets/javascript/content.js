@@ -1,12 +1,6 @@
 // Liste der Unterordner und ihrer möglichen Ordnerstrukturen (Hardcode oder dynamisch über Server)
 const folders = ['people', 'places', 'objects']; // Beispiel: Ordner, die du überprüfen möchtest
 
-const overviewData = [
-    { header: "name", value: "test" },
-    { header: "age", value: "16" },
-    { header: "role", value: "main character" }
-];
-
 window.addEventListener('load', function () {
     console.log('Marked:', marked);
     // Funktion zum Laden und Anzeigen des Inhalts
@@ -16,16 +10,19 @@ window.addEventListener('load', function () {
 
         const contentContainer = document.querySelector('.content');
         const iframeContainer = document.querySelector('.iframe-container');
+        const img = document.querySelector('.overview-image')
 
         if (!hash || hash === 'home') {
             // Kein Hash oder "home": Zeige die Startseite (home.html)
             contentContainer.style.display = 'none'; // Verstecke das Markdown-Inhaltsdiv
+            img.style.display = 'none';
             iframeContainer.style.display = 'block'; // Zeige den iFrame an
             iframeContainer.innerHTML = '<iframe src="home.html" frameborder="0" style="width: 100%; height: 100%; border-radius=8px;"></iframe>';
         } else {
             // Ein Hash ist vorhanden: Lade die entsprechende Markdown-Datei
             iframeContainer.style.display = 'none'; // Verstecke den iFrame
             contentContainer.style.display = 'block'; // Zeige das Markdown-Inhaltsdiv an
+            img.style.display = 'block';
 
             // Erstelle die URL zur Markdown-Datei
             const filePath = 'pages/' + hash + '/content.md';
@@ -41,17 +38,14 @@ window.addEventListener('load', function () {
                     return response.text();
                 })
                 .then(markdownContent => {
-                    processedContent = processMarkdown(markdownContent);
                     // Konvertiere den Markdown-Inhalt zu HTML
-                    const htmlContent = marked.parse(processedContent);
+                    const htmlContent = marked.parse(markdownContent);
                     contentContainer.innerHTML = htmlContent;
-                    console.log('Markdown-Inhalt:', processedContent);
-                    console.log('Header img:', img);
-                    console.log('Header name:', name);
-                    console.log('Header age:', age);
-                    console.log('Header first episode:', firstEpisode);
-                    console.log('Header trivia:', trivia);
-                    populateOverview(overviewData);
+                
+                    // Lade die Konfigurationsdaten und aktualisiere die Übersicht
+                    loadConfigData(hash).then(overviewData => {
+                        populateOverview(overviewData); // Nachdem die Daten geladen sind, wird populateOverview aufgerufen
+                    });
                 })
                 .catch(error => {
                     console.error('Fehler beim Laden der Markdown-Datei:', error);
@@ -62,6 +56,7 @@ window.addEventListener('load', function () {
                     } else {
                         // Lade die 404-Seite in den iFrame
                         contentContainer.style.display = 'none'; // Verstecke das Markdown-Inhaltsdiv
+                        img.style.display = 'none';
                         iframeContainer.style.display = 'block'; // Zeige den iFrame an
                         iframeContainer.innerHTML = '<iframe src="system/error404.html" frameborder="0" style="width: 100%; height: 100%; border-radius=8px;"></iframe>';
                     }
@@ -155,56 +150,24 @@ function findAndRedirectInvalidHash(hash) {
     }
   }
 
-// Globale Variablen zum Speichern der extrahierten Werte
-let img = '';
-let name = '';
-let age = '';
-let firstEpisode = '';
-let trivia = '';
-
-// Funktion, die den Header extrahiert und die wichtigen Werte speichert
-function processMarkdown(mdContent) {
-  // Regulärer Ausdruck, um den "header"-Block zu extrahieren
-  const headerRegex = /```header([\s\S]*?)```/;
-  const headerMatch = mdContent.match(headerRegex);
+// Funktion, die die config.json lädt und alle Werte als Array zurückgibt
+function loadConfigData(hash) {
+    // Pfad zur config.json-Datei unter Verwendung des Hashes
+    const configPath = `pages/${hash}/config.json`;
   
-  if (headerMatch) {
-    const headerContent = headerMatch[1].trim();
-    
-    // Header in Key-Value-Paare aufteilen und speichern
-    const headerData = parseHeader(headerContent);
-    
-    // Wichtige Werte extrahieren und in globalen Variablen speichern
-    img = headerData['img'] || '';
-    name = headerData['name'] || '';
-    age = headerData['age'] || '';
-    firstEpisode = headerData['first episode'] || '';
-    trivia = headerData['trivia'] || '';
-    overviewData = headerData
-}
-
-  // Entfernen des Headers aus dem Markdown-Content
-  const contentWithoutHeader = mdContent.replace(headerRegex, '').trim();
-
-  // Rückgabe des bereinigten Markdown-Contents
-  return contentWithoutHeader;
-}
-
-// Funktion zum Parsen des Headers in Key-Value-Paare
-function parseHeader(header) {
-  const lines = header.split('\n');
-  const data = {};
-  lines.forEach(line => {
-    const [key, value] = line.split(':');
-    if (key && value) {
-      data[key.trim()] = value.trim();
-    }
-  });
-  return data;
-}
-
-// Funktion, um die Tabelle und das Bild dynamisch zu füllen
-function populateOverview(data) {
+    return fetch(configPath)
+      .then(response => response.json()) // JSON-Daten parsen
+      .then(data => {
+        // Falls data kein Array ist, mit Object.entries() sicherstellen, dass wir ein Array zurückgeben
+        return Array.isArray(data) ? data : Object.entries(data).map(([key, value]) => ({
+          header: key.charAt(0).toUpperCase() + key.slice(1), // Erstes Zeichen großschreiben für bessere Lesbarkeit
+          value: value
+        }));
+      })
+      .catch(error => console.error('Fehler beim Laden der config.json:', error));
+  }
+  
+  function populateOverview(data) {
     const tableHeaders = document.getElementById("table-headers");
     const tableValues = document.getElementById("table-values");
     const imageElement = document.getElementById("character-image");
@@ -216,6 +179,14 @@ function populateOverview(data) {
     // Iteriere über die Daten und füge sie zur Tabelle hinzu
     data.forEach(item => {
         if (item.header && item.value) {
+            // Wenn der Header "img" ist, überspringen wir ihn
+            if (item.header.toLowerCase() === 'img') {
+                // Bild wird direkt hier gesetzt, ohne den "img"-Wert in die Tabelle aufzunehmen
+                imageElement.src = item.value; // Bild-URL setzen
+                return; // Überspringe diesen Eintrag in der Tabelle
+            }
+
+            // Füge die anderen Header-Werte zur Tabelle hinzu
             const headerCell = document.createElement("th");
             headerCell.textContent = item.header;
             tableHeaders.appendChild(headerCell);
@@ -223,11 +194,6 @@ function populateOverview(data) {
             const valueCell = document.createElement("td");
             valueCell.textContent = item.value;
             tableValues.appendChild(valueCell);
-        }
-
-        // Bild aktualisieren, falls vorhanden
-        if (item.img) {
-            imageElement.src = item.img;
         }
     });
 }

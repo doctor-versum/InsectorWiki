@@ -136,38 +136,81 @@ footer a:hover {
     background-color: #922c20;
 }
 
+/* Container für das Bild und die Tabelle */
 .overview {
-    display: flex;
-    align-items: flex-start;
-    margin-bottom: 20px;
+    display: flex; /* Aktiviert Flexbox */
+    align-items: stretch; /* Stellt sicher, dass die Höhe des Bildes und der Tabelle übereinstimmen */
+    margin-bottom: 10px;
 }
 
+/* Das Bild anpassen */
 .overview-image {
-    max-width: 150px;
-    margin-right: 20px;
+    max-width: 20vw; /* Maximale Breite des Bildes 5% der Bildschirmbreite */
+    max-height: 20vh; /* Maximale Höhe des Bildes 5% der Bildschirmhöhe */
+    width: auto;  /* Automatische Breite, damit die Proportionen erhalten bleiben */
+    height: auto; /* Automatische Höhe, damit die Proportionen erhalten bleiben */
+    object-fit: contain; /* Verhindert Verzerrungen und passt das Bild an */
+    display: block; /* Block-Layout für das Bild */
+    border-radius: 10px;
+    flex-shrink: 0; /* Verhindert, dass das Bild in der Höhe schrumpft */
 }
 
+/* Container für die Tabelle */
 .overview-table {
-    flex: 1;
-    overflow-x: auto;
+    display: flex;
+    flex-direction: column; /* Tabelle in Spalten anordnen */
+    align-items: stretch; /* Stellt sicher, dass die Tabelle die gleiche Höhe wie das Bild hat */
+    height: auto; /* Höhe automatisch an das Bild anpassen */
+    flex-grow: 1; /* Die Tabelle wächst und füllt den verbleibenden Platz */
+    overflow-x: auto; /* Ermöglicht horizontales Scrollen, wenn die Tabelle zu breit wird */
 }
 
+/* Tabelle anpassen */
 .overview-table table {
-    border-collapse: collapse;
-    width: 100%;
+    width: 99%; /* Die Breite der Tabelle passt sich automatisch an */
+    height: 100%; /* Die Tabelle nimmt die gesamte Höhe des Containers ein */
+    table-layout: auto; /* Auto-Layout für Zellen, damit min-width funktioniert */
+    border: none;
+    margin-left: 10px;
+    border-collapse: separate; /* Verhindert das Zusammenklappen von Zellen */
 }
 
-.overview-table th, .overview-table td {
-    border: 1px solid #ddd;
-    padding: 8px;
-    text-align: left;
+/* Die obere Zeile (Header) soll so klein wie möglich bleiben */
+#table-headers {
+    height: auto; /* Standardhöhe */
+    background-color: #222;
+    padding: 5px;
+    border-radius: 8px; /* Ecken der Zellen abrunden */
 }
 
-.table-headers th {
-    background-color: #f4f4f4;
-    font-weight: bold;
+/* Die untere Zeile (Werte) soll die flexible Höhe haben */
+#table-values {
+    height: auto;
+    flex-grow: 1; /* Diese Zeile wächst, um den verfügbaren Raum zu füllen */
+    background-color: #333;
+    padding: 15px; /* Padding für die Zellen */
+    border-radius: 8px; /* Ecken der Zellen abrunden */
 }
 
+/* Padding und Abrundung für die Zellen */
+th, td {
+    padding: 10px; /* Padding für Zellen */
+    border-radius: 8px; /* Ecken der Zellen abrunden */
+    min-width: 10vw; /* Mindestbreite für Zellen */
+}
+
+/* Zusätzliche Stile für die Zellen */
+th {
+    background-color: #444; /* Kopfzeilen etwas hervorheben */
+    color: #fff;
+}
+
+td {
+    background-color: #555; /* Zellenhintergrund */
+    color: #fff;
+}
+
+::-webkit-scrollbar { width: 0px; height: 0px; }
 
 /* Responsives Design für kleinere Bildschirme */
 @media (max-width: 768px) {
