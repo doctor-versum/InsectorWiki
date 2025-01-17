@@ -210,6 +210,36 @@ td {
     color: #fff;
 }
 
+.category {
+    background-color: #4d4d4d;
+}
+
+.category h2 {
+    font-size: 1.5em;
+    margin: 0.5em 0;
+    text-align: left;
+    padding: 0.5em;
+  }
+  
+  .links {
+    padding: 0.5em;
+    width: 100%;
+  }
+  
+  .links a {
+    text-decoration: none;
+    display: block;
+    padding: 0.2em;
+  }
+
+#search-bar {
+    background-color: #3f3f3f;
+    border-color: #000000;
+    border-style: solid;
+    padding: 0.5rem;
+    border-radius: 100px;
+}
+
 ::-webkit-scrollbar { width: 0px; height: 0px; }
 
 /* Responsives Design für kleinere Bildschirme */

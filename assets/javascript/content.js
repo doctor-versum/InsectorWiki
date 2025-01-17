@@ -10,14 +10,22 @@ window.addEventListener('load', function () {
 
         const contentContainer = document.querySelector('.content');
         const iframeContainer = document.querySelector('.iframe-container');
-        const img = document.querySelector('.overview-image')
+        const img = document.querySelector('.overview-image');
+        const tableHeaders = document.getElementById("table-headers");
+        const tableValues = document.getElementById("table-values");
+        const imageElement = document.getElementById("character-image");
 
         if (!hash || hash === 'home') {
             // Kein Hash oder "home": Zeige die Startseite (home.html)
             contentContainer.style.display = 'none'; // Verstecke das Markdown-Inhaltsdiv
             img.style.display = 'none';
             iframeContainer.style.display = 'block'; // Zeige den iFrame an
-            iframeContainer.innerHTML = '<iframe src="home.html" frameborder="0" style="width: 100%; height: 100%; border-radius=8px;"></iframe>';
+            iframeContainer.innerHTML = '<iframe src="system/home.html" frameborder="0" style="width: 100%; height: 100%; border-radius=8px;"></iframe>';
+
+            // Leere die Tabelle und das Bild
+            tableHeaders.innerHTML = "";
+            tableValues.innerHTML = "";
+            imageElement.src = ""; // Setze das Bild auf leer
         } else {
             // Ein Hash ist vorhanden: Lade die entsprechende Markdown-Datei
             iframeContainer.style.display = 'none'; // Verstecke den iFrame
@@ -146,6 +154,9 @@ function findAndRedirectInvalidHash(hash) {
     } else {
         // Falls keine Seite gefunden wurde, gib eine Fehlermeldung aus
         console.log(`Kein gültiger Hash gefunden für: ${hash}`);
+        const contentContainer = document.querySelector('.content');
+        const iframeContainer = document.querySelector('.iframe-container');
+        const img = document.querySelector('.overview-image')
         contentContainer.style.display = 'none'; // Verstecke das Markdown-Inhaltsdiv
         img.style.display = 'none';
         iframeContainer.style.display = 'block'; // Zeige den iFrame an
