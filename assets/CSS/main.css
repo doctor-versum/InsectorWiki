@@ -11,6 +11,16 @@ html, body {
     height: 100%;
 }
 
+a{
+    color: #922c20;
+    text-decoration: none;
+}
+
+img {
+    max-width: 30vw;
+    border-radius: 20px;
+}
+
 /* Container für das gesamte Layout */
 .page-container {
     display: flex;

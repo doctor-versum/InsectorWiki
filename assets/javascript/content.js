@@ -67,6 +67,15 @@ window.addEventListener('load', function () {
                         img.style.display = 'none';
                         iframeContainer.style.display = 'block'; // Zeige den iFrame an
                         iframeContainer.innerHTML = '<iframe src="system/error404.html" frameborder="0" style="width: 100%; height: 100%; border-radius=8px;"></iframe>';
+      
+                        const tableHeaders = document.getElementById("table-headers");
+                        const tableValues = document.getElementById("table-values");
+                        const imageElement = document.getElementById("character-image");
+
+                        // Leere die Tabelle und das Bild
+                        tableHeaders.innerHTML = "";
+                        tableValues.innerHTML = "";
+                        imageElement.src = ""; // Setze das Bild auf leer
                     }
                 });
         }
@@ -170,6 +179,15 @@ function findAndRedirectInvalidHash(hash) {
         img.style.display = 'none';
         iframeContainer.style.display = 'block'; // Zeige den iFrame an
         iframeContainer.innerHTML = '<iframe src="system/error404.html" frameborder="0" style="width: 100%; height: 100%; border-radius=8px;"></iframe>';
+      
+        const tableHeaders = document.getElementById("table-headers");
+        const tableValues = document.getElementById("table-values");
+        const imageElement = document.getElementById("character-image");
+  
+        // Leere die Tabelle und das Bild
+        tableHeaders.innerHTML = "";
+        tableValues.innerHTML = "";
+        imageElement.src = ""; // Setze das Bild auf leer
         return false; // Keine Alternative gefunden
     }
   }
