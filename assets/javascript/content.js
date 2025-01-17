@@ -1,4 +1,5 @@
 window.addEventListener('load', function () {
+    console.log('Marked:', marked);
     // Funktion zum Laden und Anzeigen des Inhalts
     function loadContent() {
         // Extrahiere den Hash aus der URL
@@ -11,7 +12,7 @@ window.addEventListener('load', function () {
             // Kein Hash oder "home": Zeige die Startseite (home.html)
             contentContainer.style.display = 'none'; // Verstecke das Markdown-Inhaltsdiv
             iframeContainer.style.display = 'block'; // Zeige den iFrame an
-            iframeContainer.innerHTML = '<iframe src="home.html" frameborder="0" style="width: 100%; height: 100%;"></iframe>';
+            iframeContainer.innerHTML = '<iframe src="home.html" frameborder="0" style="width: 100%; height: 100%; border-radius=8px;"></iframe>';
         } else {
             // Ein Hash ist vorhanden: Lade die entsprechende Markdown-Datei
             iframeContainer.style.display = 'none'; // Verstecke den iFrame
@@ -19,6 +20,8 @@ window.addEventListener('load', function () {
 
             // Erstelle die URL zur Markdown-Datei
             const filePath = 'pages/' + hash + '.md';
+            console.log('Lade Datei:', filePath);
+            console.log('hash:', hash);
 
             // Lade die Datei mit fetch
             fetch(filePath)
@@ -30,7 +33,7 @@ window.addEventListener('load', function () {
                 })
                 .then(markdownContent => {
                     // Konvertiere den Markdown-Inhalt zu HTML
-                    const htmlContent = marked(markdownContent);
+                    const htmlContent = marked.parse(markdownContent);
                     contentContainer.innerHTML = htmlContent;
                 })
                 .catch(error => {
@@ -39,7 +42,7 @@ window.addEventListener('load', function () {
                     // Lade die 404-Seite in den iFrame
                     contentContainer.style.display = 'none'; // Verstecke das Markdown-Inhaltsdiv
                     iframeContainer.style.display = 'block'; // Zeige den iFrame an
-                    iframeContainer.innerHTML = '<iframe src="system/error404.html" frameborder="0" style="width: 100%; height: 100%;"></iframe>';
+                    iframeContainer.innerHTML = '<iframe src="system/error404.html" frameborder="0" style="width: 100%; height: 100%; border-radius=8px;"></iframe>';
                 });
         }
     }
